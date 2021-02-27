@@ -22,7 +22,7 @@ export default function App() {
         <Button onPress="" title="Start Recording" color="#5e4352"></Button>
       </View>
       <Text>Proper Position Counter</Text>
-      gs
+
       <View style={styles.button2}>
         <Button color="#000" onPress="" title="Restart"></Button>
       </View>
