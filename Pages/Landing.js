@@ -2,31 +2,30 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Appbar } from "react-native-paper";
-import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from "./Pages/Home";
-import Landing from "./Pages/Landing";
+import Home from "./Home";
 
-const Stack = createStackNavigator();
-
-export default function App() {
+export default function Landing({ navigation }) {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
 
+
+        <Image style={styles.tinyLogo} source={require('./exerFlow.png')}/>
+  
+      <StatusBar style="auto" />
+      <View style={styles.button1} >
+        <Button onPress={() => navigation.navigate('Home')} title="Continue" color="#8f3ab2"></Button>
+      </View> 
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E3DBDB",
+    backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 200,
     color: "#333333",
+    width: 200,
   },
 
   button2: {
@@ -60,5 +60,12 @@ const styles = StyleSheet.create({
   body: {
     margin: "auto",
     textAlign: "center",
+  },
+
+  tinyLogo: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 });

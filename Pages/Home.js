@@ -2,24 +2,32 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Appbar } from "react-native-paper";
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from "./Pages/Home";
-import Landing from "./Pages/Landing";
-
-const Stack = createStackNavigator();
-
-export default function App() {
+export default function Home() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Appbar style={styles.bottom}>
+        <Appbar.Content
+          style={styles.headerItem}
+          title="exerFlow"
+          subtitle="Get it Right"
+        />
+      </Appbar>
 
+      <Text style={styles.body}>
+        Welcome to exerFlow, an app designed to help maintain proper technique
+        and posture during exercise, specifically squatting.
+      </Text>
+      <StatusBar style="auto" />
+      <View style={styles.button1}>
+        <Button onPress="" title="Start Recording" color="#5e4352"></Button>
+      </View>
+      <Text>Proper Position Counter</Text>
+
+      <View style={styles.button2}>
+        <Button color="#000" onPress="" title="Restart"></Button>
+      </View>
+    </View>
   );
 }
 
