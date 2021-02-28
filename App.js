@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Appbar } from "react-native-paper";
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Camera } from "expo-camera";
 
 import Home from "./Pages/Home";
 import Landing from "./Pages/Landing";
+import AppCamera from "./Pages/AppCamera";
 
 const Stack = createStackNavigator();
 
@@ -17,9 +19,9 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="AppCamera" component={AppCamera} />
       </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 

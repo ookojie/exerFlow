@@ -2,8 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Appbar } from "react-native-paper";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Appbar style={styles.bottom}>
@@ -16,11 +18,16 @@ export default function Home() {
 
       <Text style={styles.body}>
         Welcome to exerFlow, an app designed to help maintain proper technique
-        and posture during exercise, specifically squatting.
+        and posture during exercise, specifically squatting. Click on the Start
+        Recording button to begin.
       </Text>
       <StatusBar style="auto" />
       <View style={styles.button1}>
-        <Button onPress="" title="Start Recording" color="#5e4352"></Button>
+        <Button
+          onPress={() => navigation.navigate("AppCamera")}
+          title="Start Recording"
+          color="#5e4352"
+        ></Button>
       </View>
       <Text>Proper Position Counter</Text>
 
