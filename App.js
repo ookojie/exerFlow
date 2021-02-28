@@ -10,6 +10,7 @@ import { Camera } from "expo-camera";
 import Home from "./Pages/Home";
 import Landing from "./Pages/Landing";
 import AppCamera from "./Pages/AppCamera";
+import Deskcam from "./Pages/Deskcam";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="AppCamera" component={AppCamera} />
+        <Stack.Screen name="Deskcam" component={Deskcam} />
       </Stack.Navigator>
     </NavigationContainer>
   );

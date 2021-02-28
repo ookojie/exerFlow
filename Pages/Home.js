@@ -17,8 +17,9 @@ export default function Home({ navigation }) {
       </Appbar>
       <View style={styles.body}></View>
       <Text style={styles.body}>
-        Welcome to <Text style={styles.bold}>exerFlow</Text>, an app designed to help maintain proper technique
-        and posture during exercise, specifically squatting.
+        Welcome to <Text style={styles.bold}>exerFlow</Text>, an app designed to
+        help maintain proper technique and posture during exercise, specifically
+        squatting.
       </Text>
       <Text style={styles.body}>
         Click on the Start Recording button to begin.
@@ -26,7 +27,7 @@ export default function Home({ navigation }) {
       <StatusBar style="auto" />
       <View style={styles.button1}>
         <Button
-          onPress={() => navigation.navigate("AppCamera")}
+          onPress={() => navigation.navigate("Deskcam")}
           title="Start Recording"
           color="#5e4352"
         ></Button>
