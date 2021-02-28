@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 0.1,
     alignSelf: "flex-end",
-    alignItem: "center",
+    alignItems: "center",
   },
 
   text: {
