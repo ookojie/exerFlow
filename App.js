@@ -1,66 +1,104 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
-import { Appbar } from "react-native-paper";
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Camera } from "expo-camera";
+// Sim To do Feb 27th 2021
+// Install dependencies X
+//Import dependencies X
+//Set up webcam and canvas X
+//define ref to them XXX
+//load posenet xxx
+//detect function xxx
+//draw utilites from tensorflow // XXX:
+//draw function xx
 
-import Home from "./Pages/Home";
-import Landing from "./Pages/Landing";
-import AppCamera from "./Pages/AppCamera";
+import React, { useRef } from "react";
+import "./App.css";
+import * as tf from "@tensorflow/tfjs";
+import * as posenet from "@tensorflow-models/posenet";
+import Webcam from "react-webcam";
+import { drawKeypoints, drawSkeleton } from "./utilities"; //imported 
 
-const Stack = createStackNavigator();
+function App() {
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
 
-export default function App() {
+  //  Load posenet
+  const runPosenet = async () => {
+    const net = await posenet.load({
+      inputResolution: { width: 640, height: 480 },
+      scale: 0.8,
+    });
+    //
+    setInterval(() => {
+      detect(net);
+    }, 700);
+  };
+
+  const detect = async (net) => {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      // Get Video Properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
+
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
+
+      // Make Detections
+      const pose = await net.estimateSinglePose(video);
+      console.log(pose);
+
+      requestAnimationFrame(()=>{drawCanvas(pose, video, videoWidth, videoHeight, canvasRef)});    }
+  };
+
+  const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
+    const ctx = canvas.current.getContext("2d");
+    canvas.current.width = videoWidth;
+    canvas.current.height = videoHeight;
+
+    drawKeypoints(pose["keypoints"], 0.6, ctx);
+    drawSkeleton(pose["keypoints"], 0.7, ctx);
+  };
+
+  runPosenet();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="AppCamera" component={AppCamera} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <div className="App">
+      <header className="App-header">
+        <Webcam
+          ref={webcamRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
+
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
+      </header>
+    </div>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#E3DBDB",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  button1: {
-    marginTop: 20,
-    marginBottom: 200,
-    color: "#333333",
-  },
-
-  button2: {
-    marginTop: 20,
-    marginBottom: 25,
-    color: "#744474",
-  },
-
-  bottom: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    backgroundColor: "#000000",
-  },
-
-  headerItem: {
-    // position: "absolute",
-    margin: "auto",
-    alignItems: "center",
-  },
-
-  body: {
-    margin: "auto",
-    textAlign: "center",
-  },
-});
+export default App;
